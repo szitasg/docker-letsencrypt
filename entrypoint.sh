@@ -9,12 +9,11 @@ if [ -z "${DOMAINS}" ] ; then
     exit 1
 fi
 
-if [ -z "$EMAIL" ] ; then
+if [ -z "${EMAIL}" ] ; then
     echo "No email set, please fill -e 'EMAIL=your@email.tld'"
     exit 1
 fi
 
-DOMAINS=(${DOMAINS})
 CHECK_FREQ="${CHECK_FREQ:-30}"
 
 check() {
@@ -25,9 +24,9 @@ check() {
             --agree-tos \
             --non-interactive \
             --expand \
-            --cert-name ${DOMAIN} \
-            --email ${EMAIL} \
-            --domains ${DOMAIN} \
+            --cert-name "${DOMAIN"} \
+            --email "${EMAIL}" \
+            --domains "${DOMAIN}" \
             --standalone
 
         echo "* Certificate request process finished for domain ${DOMAIN}"
@@ -38,8 +37,8 @@ check() {
         fi
     done
 
-    echo "* Next check in $CHECK_FREQ days"
-    sleep ${CHECK_FREQ}d
+    echo "* Next check in ${CHECK_FREQ} days"
+    sleep "${CHECK_FREQ}d"
     check
 }
 
